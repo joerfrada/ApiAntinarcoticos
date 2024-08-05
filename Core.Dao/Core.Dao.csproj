@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Configurations>Debug;Release;DESARROLLO;DEBUG_DESARROLLO;DEBUG_PRODUCCION;DEBUG_PRUEBAS</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Servicios\Core.Servicios.csproj" />
+  </ItemGroup>
+
+</Project>
