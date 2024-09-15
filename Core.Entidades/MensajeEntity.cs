@@ -10,5 +10,6 @@ namespace Core.Entidades
         public String Mensaje { get; set; }
         public TipoMensaje Tipo { get; set; }
         public Int64 Id { get; set; }
+        public Int64 Total { get; set; }
     }
 }

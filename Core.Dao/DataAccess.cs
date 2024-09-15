@@ -6,7 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Oracle.ManagedDataAccess.Client;
 using Core.Entidades;
 using Core.Servicios;
-using System.Security.Cryptography.Xml;
+using System.Text.RegularExpressions;
+using System.Net;
 
 namespace Core.Dao
 {
@@ -27,8 +28,10 @@ namespace Core.Dao
             this.Usuario = pUsuario;
         }
 
-        public bool IsValidCredentials(string pUsuario)
+        public bool IsValidCredentials(string pUsuario, ref string error)
         {
+            bool res = false;
+
             if (tipo == TipoAmbiente.Desarrollo)
             {
                 this.ConnectionString = "User Id=" + this.Usuario + configuration.GetSection("ConnectionStrings").GetSection("DES_XEPDB1").Value;
@@ -50,13 +53,38 @@ namespace Core.Dao
                     if (conn.State != ConnectionState.Open)
                         conn.Open();
 
-                    return true;
+                    res = true;
                 }
             }
-            catch
+            catch (OracleException ex)
             {
-                return false;
+                if (ex.InnerException != null)
+                {
+                    int number = int.Parse(Regex.Match(ex.InnerException.InnerException.Message, @"\d+").Value);
+                    if (number == 12541)
+                    {
+                        error = "TNS: No nay ningún listener";
+                    }
+                    else if (number == 12514)
+                    {
+                        error = "TNS: El listener no conoce actualmente el servicio solicitado en el descriptor de conexión";
+                    }
+                }
+                else
+                {
+                    int number = int.Parse(Regex.Match(ex.Message, @"\d+").Value);
+                    if (number == 1109)
+                    {
+                        error = "La base de datos sin abrir";
+                    }
+                    else if (number == 1017)
+                    {
+                        error = "Usuario y/o Contraseña no son válidos";
+                    }
+                }
             }
+
+            return res;
         }
 
         public OracleCommand ExecuteProcedure(List<OracleParameter> pParams, string pSqlProc)

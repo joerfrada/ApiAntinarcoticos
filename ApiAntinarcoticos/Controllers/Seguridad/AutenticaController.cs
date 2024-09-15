@@ -4,7 +4,7 @@ using Core.Entidades;
 using Core.Negocios;
 using Core.Servicios;
 
-namespace ApiAntinarcoticos.Controllers
+namespace ApiAntinarcoticos.Controllers.Seguridad
 {
     [Route("api/[controller]")]
     [ApiController]

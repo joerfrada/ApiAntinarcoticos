@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core.Servicios\Core.Servicios.csproj" />
+    <ProjectReference Include="..\Core.Utilidades\Core.Utilidades.csproj" />
   </ItemGroup>
 
 </Project>

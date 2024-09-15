@@ -17,6 +17,7 @@ namespace ApiAntinarcoticos
             // Agregar la Interfaz y los Negocios
             builder.Services.AddScoped<IDataAccess, DataAccess>();
             builder.Services.AddScoped<ILoginManager, LoginManager>();
+            builder.Services.AddScoped<IValorFlexibleManager, ValorFlexibleManager>();
 
             var app = builder.Build();
 

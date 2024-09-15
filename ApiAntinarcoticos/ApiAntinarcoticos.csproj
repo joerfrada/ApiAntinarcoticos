@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Core.Utilidades\Core.Utilidades.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Operaciones\" />
+  </ItemGroup>
+
 </Project>
